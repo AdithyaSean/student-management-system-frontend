@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Backend Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .api-test { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 4px; }
+    button { padding: 8px 16px; margin-right: 10px; }
+    pre { background: #f5f5f5; padding: 10px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Backend API Tests</h1>
+    
+    <!-- Students API Test -->
+    <div class="api-test">
+      <h2>Students API</h2>
+      <button onclick="testGetStudents()">Get Students</button>
+      <button onclick="testCreateStudent()">Create Student</button>
+      <pre id="students-output"></pre>
+    </div>
+
+    <!-- Courses API Test -->
+    <div class="api-test">
+      <h2>Courses API</h2>
+      <button onclick="testGetCourses()">Get Courses</button>
+      <button onclick="testCreateCourse()">Create Course</button>
+      <pre id="courses-output"></pre>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api';
+    
+    async function testGetStudents() {
+      try {
+        const response = await fetch(`${API_BASE}/students`);
+        const data = await response.json();
+        document.getElementById('students-output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('students-output').textContent = 'Error: ' + error.message;
+      }
+    }
+
+    async function testCreateStudent() {
+      const studentData = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        phone: '123-456-7890'
+      };
+      
+      try {
+        const response = await fetch(`${API_BASE}/students`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(studentData)
+        });
+        const data = await response.json();
+        document.getElementById('students-output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('students-output').textContent = 'Error: ' + error.message;
+      }
+    }
+
+    async function testGetCourses() {
+      try {
+        const response = await fetch(`${API_BASE}/courses`);
+        const data = await response.json();
+        document.getElementById('courses-output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('courses-output').textContent = 'Error: ' + error.message;
+      }
+    }
+
+    async function testCreateCourse() {
+      const courseData = {
+        name: 'Mathematics 101',
+        code: 'MATH101',
+        credits: 3
+      };
+      
+      try {
+        const response = await fetch(`${API_BASE}/courses`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(courseData)
+        });
+        const data = await response.json();
+        document.getElementById('courses-output').textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById('courses-output').textContent = 'Error: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
