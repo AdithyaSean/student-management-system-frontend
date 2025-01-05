@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Backend Connection Test</h1>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div class="data-section">
+    <h2>Students</h2>
+    <pre>{{ students | json }}</pre>
+  </div>
+
+  <div class="data-section">
+    <h2>Courses</h2>
+    <pre>{{ courses | json }}</pre>
+  </div>
+
+  <div class="data-section">
+    <h2>Results</h2>
+    <pre>{{ results | json }}</pre>
+  </div>
+</div>
